@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Integer 2 English</string>
+    <string name="cuntry_iso_uk">UK</string>
+    <string name="cuntry_iso_us">US</string>
+    <string name="convert_button">Write in English</string>
+    <string name="main_input_hint">Enter an integer</string>
+</resources>
