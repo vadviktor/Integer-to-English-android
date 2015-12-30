@@ -8,71 +8,77 @@ public class IntToEng {
     protected static String[] ten_frags = new String[]{"", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
     protected static String[] scale     = new String[]{"", "thousand", "million", "billion", "trillion", "quadrillion"};
 
-    public static String convert(String i) {
-        return convert(i, false);
+    public static String convert(String number) {
+        return convert(number, false);
     }
 
-    public static String convert(String i, boolean us) {
+    public static String convert(String number, boolean us) {
 
         // 0
-        if (i.length() == 1 && i.equals("0")) {
+        if (number.length() == 1 && number.equals("0")) {
             return "zero";
         }
 
         // 1..999
-        if (i.length() < 4) {
-            return get_hundreds(i, us);
+        if (number.length() < 4) {
+            return get_hundreds(number, us);
         }
 
         // 999 <
+        int i = 0;
 
-        // ...
 
         return null;
     }
 
-    protected static String get_hundreds(String i, boolean us) {
-        String two = get_2_decimals(i);
+    protected static String get_hundreds(String number, boolean us) {
+        String two = get_2_decimals(number);
         if (two != null) {
             return two;
         }
 
-        return get_3_decimals(i, us);
+        return get_3_decimals(number, us);
     }
 
     /**
-     * @param i String
+     * @param number String
      * @return String|null
      */
-    protected static String get_2_decimals(String i) {
+    protected static String get_2_decimals(String number) {
         // 0
-        if (i.length() == 1 && i.equals("0")) {
+        if (number.length() == 1 && number.equals("0")) {
             return "";
         }
 
-        // 1..9
-        if (i.length() == 1 && !i.equals("0")) {
-            return singles[Integer.parseInt(i)];
+        // 1..9 / 01..09
+        if ((number.length() == 1 && !number.equals("0")) ||
+                (number.length() == 2 &&
+                        number.charAt(0) == '0' &&
+                        number.charAt(1) != '0')
+                ) {
+            return singles[Integer.parseInt(number)];
         }
 
         // tens
-        if (i.length() == 2 && i.charAt(1) == '0') {
+        if (number.length() == 2 && number.charAt(1) == '0') {
             return tens[Integer.parseInt(String.valueOf(
-                    i.charAt(0)
+                    number.charAt(0)
             ))];
         }
 
         // 11..19
-        if (i.length() == 2 && i.charAt(0) == '1' && i.charAt(1) != '0') {
+        if (number.length() == 2 && number.charAt(0) == '1' && number.charAt(1) != '0') {
             return ten_frags[Integer.parseInt(String.valueOf(
-                    i.charAt(1)
+                    number.charAt(1)
             ))];
         }
 
         // 21..99
-        if (i.length() == 2 && i.charAt(0) != '1' && i.charAt(1) != '0') {
-            String _ten = tens[Integer.parseInt(String.valueOf(i.charAt(0)))];
-            String _single = singles[Integer.parseInt(String.valueOf(i.charAt(1)))];
+        if (number.length() == 2 &&
+                Integer.parseInt(String.valueOf(number.charAt(0))) > 1 &&
+                Integer.parseInt(String.valueOf(number.charAt(1))) >= 1) {
+            String _ten = tens[Integer.parseInt(String.valueOf(number.charAt(0)))];
+            String _single = singles[Integer.parseInt(String.valueOf(number.charAt(1)))];
             return _ten + "-" + _single;
         }
 
@@ -80,17 +86,17 @@ public class IntToEng {
     }
 
     /**
-     * @param i  String
-     * @param us boolean
+     * @param number String
+     * @param us     boolean
      * @return String|null
      */
-    protected static String get_3_decimals(String i, boolean us) {
-        if (i.length() == 3 && i.charAt(0) != '0') {
-            String final_number = singles[Integer.parseInt(String.valueOf(i.charAt(0)))] + " hundred";
+    protected static String get_3_decimals(String number, boolean us) {
+        if (number.length() == 3 && number.charAt(0) != '0') {
+            String final_number = singles[Integer.parseInt(String.valueOf(number.charAt(0)))] + " hundred";
 
-            if (i.charAt(1) != '0' || i.charAt(2) != '0') {
+            if (number.charAt(1) != '0' || number.charAt(2) != '0') {
                 final_number += (us ? " " : " and ");
-                final_number += get_2_decimals(i.substring(1,2));
+                final_number += get_2_decimals(number.substring(1, 3));
             }
 
             return final_number;
