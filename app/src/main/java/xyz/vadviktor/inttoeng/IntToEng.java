@@ -33,8 +33,8 @@ public class IntToEng {
         ArrayList<Character> portion_block = new ArrayList<>();
         number = new StringBuilder(number).reverse().toString();
 
-        for (int j = 0; j < number.length(); j++) {
-            portion_block.add(number.charAt(j));
+        for (char j : number.toCharArray()) {
+            portion_block.add(j);
             i++;
 
             if (i % 3 == 0) {
@@ -63,8 +63,9 @@ public class IntToEng {
         String final_number = "";
         i = portions.size() - 1;
 
-        for (int j = 0; j < portions.size(); j++) {
-            String portion = new StringBuilder(portions.get(j)).reverse().toString();
+        for (String j : portions) {
+            // reverse the number, convert it into real int to eliminate leading zeros, then get it in string form
+            String portion = Integer.toString(Integer.parseInt(new StringBuilder(j).reverse().toString()));
             String p_in_text = get_hundreds(portion, us);
 
             if (p_in_text != null && !p_in_text.isEmpty()) {

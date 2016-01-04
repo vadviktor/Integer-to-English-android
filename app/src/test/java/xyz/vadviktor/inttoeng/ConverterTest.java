@@ -60,6 +60,10 @@ public class ConverterTest {
         assertEquals("one hundred", convert("100"));
         assertEquals("two hundred", convert("200"));
         assertEquals("nine hundred", convert("900"));
+
+        assertEquals("one hundred and one", convert("101"));
+        assertEquals("one hundred and ten", convert("110"));
+        assertEquals("one hundred and eleven", convert("111"));
     }
 
     @Test
@@ -80,6 +84,11 @@ public class ConverterTest {
         assertEquals("one thousand", convert("1000"));
         assertEquals("two thousand", convert("2000"));
         assertEquals("nine thousand", convert("9000"));
+
+        assertEquals("one thousand one", convert("1001"));
+        assertEquals("one thousand one hundred", convert("1100"));
+        assertEquals("one thousand eleven", convert("1011"));
+        assertEquals("one thousand one hundred and eleven", convert("1111"));
     }
 
     @Test
@@ -114,8 +123,14 @@ public class ConverterTest {
     public void convert_any_numbers_it_could() {
         assertEquals("forty-three thousand four hundred and two", convert("43402"));
         assertEquals("three hundred thirty thousand four hundred two", convert("330402", true));
-        assertEquals("six hundred twenty-three quadrillion seven hundred seventy-seven trillion four million three thousand four hundred two", convert("623777000004003402", true));
-        assertEquals("six hundred and twenty-three quadrillion seven hundred and seventy-seven trillion four million three thousand four hundred and two", convert("623777000004003402"));
+        assertEquals(
+                "six hundred twenty-three quadrillion seven hundred seventy-seven trillion four million three thousand four hundred two",
+                convert("623777000004003402", true)
+        );
+        assertEquals(
+                "six hundred and twenty-three quadrillion seven hundred and seventy-seven trillion four million three thousand four hundred and two",
+                convert("623777000004003402")
+        );
     }
 
 }
