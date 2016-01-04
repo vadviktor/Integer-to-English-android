@@ -1,39 +1,29 @@
 package xyz.vadviktor.inttoeng;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.CompoundButton;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    public Integer version = 0;
-    public Switch toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        this.toggle = (Switch) findViewById(R.id.switch_version);
-
-        this.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    set_version_us();
-                } else {
-                    set_version_uk();
-                }
-            }
-        });
     }
 
-    protected void set_version_uk() {
-        this.version = 0;
-    }
+    public void convertInteger(View view) {
+        Switch   toggle = (Switch) findViewById(R.id.switch_version);
+        boolean  us     = toggle.isChecked();
+        EditText input  = (EditText) findViewById(R.id.editText_number);
+        String   number = input.getText().toString();
+        TextView output = (TextView) findViewById(R.id.textView_Result);
 
-    protected void set_version_us() {
-        this.version = 1;
+        input.setText("");
+        output.setText(IntToEng.convert(number, us));
     }
 
 }

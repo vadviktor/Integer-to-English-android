@@ -28,7 +28,10 @@
         android:layout_marginTop="20dp"
         android:layout_alignParentBottom="false"
         android:layout_alignParentTop="false"
-        android:layout_below="@+id/button_convert" />
+        android:layout_below="@+id/button_convert"
+        android:hint="@string/result_textview_hint"
+        android:clickable="false"
+        android:textIsSelectable="true"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -39,6 +42,7 @@
         android:layout_alignEnd="@+id/textView_Result"
         android:layout_marginTop="10dp"
         android:layout_alignParentRight="true"
+        android:onClick="convertInteger"
         android:layout_marginRight="10dp" />
 
     <Switch
