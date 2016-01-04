@@ -91,9 +91,9 @@ public class ConverterTest {
 
     @Test
     public void convert_billions() {
-        assertEquals("one million", convert("1000000000"));
-        assertEquals("two million", convert("2000000000"));
-        assertEquals("nine million", convert("9000000000"));
+        assertEquals("one billion", convert("1000000000"));
+        assertEquals("two billion", convert("2000000000"));
+        assertEquals("nine billion", convert("9000000000"));
     }
 
     @Test
