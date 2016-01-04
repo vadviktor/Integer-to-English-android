@@ -1,6 +1,9 @@
 package xyz.vadviktor.inttoeng;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class IntToEng {
 
     protected static String[] singles   = new String[]{"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
@@ -25,10 +28,53 @@ public class IntToEng {
         }
 
         // 999 <
-        int i = 0;
+        int                  i             = 0;
+        ArrayList<String>    portions      = new ArrayList<>();
+        ArrayList<Character> portion_block = new ArrayList<>();
+        number = new StringBuilder(number).reverse().toString();
 
+        for (int j = 0; j < number.length(); j++) {
+            portion_block.add(number.charAt(j));
+            i++;
 
-        return null;
+            if (i % 3 == 0) {
+                StringBuilder block_clone = new StringBuilder(portion_block.size());
+                for (Character ch : portion_block) {
+                    block_clone.append(ch);
+                }
+
+                portions.add(block_clone.toString());
+                portion_block.clear();
+                i = 0;
+            }
+        }
+
+        if (!portion_block.isEmpty()) {
+            StringBuilder block_clone = new StringBuilder(portion_block.size());
+            for (Character ch : portion_block) {
+                block_clone.append(ch);
+            }
+
+            portions.add(block_clone.toString());
+        }
+
+        Collections.reverse(portions);
+
+        String final_number = "";
+        i = portions.size() - 1;
+
+        for (int j = 0; j < portions.size(); j++) {
+            String portion = new StringBuilder(portions.get(j)).reverse().toString();
+            String p_in_text = get_hundreds(portion, us);
+
+            if (p_in_text != null && !p_in_text.isEmpty()) {
+                final_number += p_in_text + " " + scale[i] + " ";
+            }
+
+            i -= 1;
+        }
+
+        return final_number.trim();
     }
 
     protected static String get_hundreds(String number, boolean us) {
